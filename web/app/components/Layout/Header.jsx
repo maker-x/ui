@@ -171,6 +171,9 @@ class Header extends React.Component {
             <a className={cnames({active: active.indexOf("market/") !== -1})} onClick={this._onNavigate.bind(this, `/market/${this.props.lastMarket}`)}><Translate component="span" content="header.exchange" /></a>:
             <a className={cnames({active: active.indexOf("market/") !== -1})} onClick={this._onNavigate.bind(this, `/market/MKR_OPEN.BTC`)}><Translate component="span" content="header.exchange" /></a>
 
+        {/* let {account, linkedAccounts, isMyAccount} = this.props;
+        let account_name = account.get("name"); //BIS */} 
+
         // Account selector: Only active inside the exchange
         let accountsDropDown = null;
 
@@ -224,6 +227,7 @@ class Header extends React.Component {
                         {/* <li><a className={cnames({active: active.indexOf("explorer") !== -1})} onClick={this._onNavigate.bind(this, "/explorer")}><Translate component="span" content="header.explorer" /></a></li> */}
                         <li>{tradeLink}</li>
                         <li><a className={cnames({active: active.indexOf("transfer") !== -1})} onClick={this._onNavigate.bind(this, "/transfer")}><Translate component="span" content="header.payments" /></a></li>
+                        {/* {isMyAccount ? <li><a><Link to={`/account/${account_name}/deposit-withdraw/`} activeClassName="active"><Translate content="account.deposit_withdraw"/></Link></li> : null}</a></li> //BIS */}
                     </ul>
                 </div>
                 <div className="grid-block show-for-medium shrink">

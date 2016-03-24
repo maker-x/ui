@@ -27,7 +27,7 @@ class AccountInfo extends React.Component {
                 {this.props.title ? <h4>{this.props.title}</h4> : null}
                 <AccountImage size={image_size} account={account.get("name")} custom_image={null}/>
                 <h5>{account.get("name")}</h5>
-                <h6 className="subheader">#{display_id} {this.props.my_account ? <span className="my-account-label">(My Account)</span> : null}</h6>
+                {/* <h6 className="subheader">#{display_id} {this.props.my_account ? <span className="my-account-label">(My Account)</span> : null}</h6> */}
             </div>
         );
     }

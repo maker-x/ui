@@ -93,12 +93,12 @@ class AccountLeftPanel extends React.Component {
                         </section>
                     </div>
                 </div>
-                {isMyAccount ?
+                {/* {isMyAccount ?
                 <div className="grid-block shrink bottom">
                     <div className="center">
                         <a href data-tip="Create New Account" data-place="top" onClick={this.onCreateAccountClick.bind(this)}><Icon name="plus-circle"/></a>
                     </div>
-                </div> : null}
+                </div> : null} */}
             </div>
         );
     }

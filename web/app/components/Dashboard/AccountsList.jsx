@@ -226,10 +226,10 @@ class AccountsList extends React.Component {
 
         return (
             <div>
-                {!this.props.compact ? (
+                {/* {!this.props.compact ? (
                     <div style={{paddingLeft: "5px", maxWidth: "20rem"}}>
                         <input placeholder={filterText} type="text" value={dashboardFilter} onChange={this._onFilter.bind(this)} />
-                    </div>) : null}
+                    </div>) : null} //BIS */}
                 <table className="table table-hover" style={{fontSize: "0.85rem"}}>
                     {!this.props.compact ? (
                     <thead>

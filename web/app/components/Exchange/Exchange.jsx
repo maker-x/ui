@@ -1397,11 +1397,11 @@ class Exchange extends React.Component {
                                                     </div>
                                                 </li>) : null}
 
-                                                <li className="stat float-right clickable" style={{borderLeft: "1px solid grey", borderRight: "none", padding: "3px 15px 0 15px"}} onClick={this._toggleCharts.bind(this)}>
+                                                {/* <li className="stat float-right clickable" style={{borderLeft: "1px solid grey", borderRight: "none", padding: "3px 15px 0 15px"}} onClick={this._toggleCharts.bind(this)}>
                                                     <div className="indicators">
                                                        {!this.state.showDepthChart ? <Translate content="exchange.order_depth" /> : <Translate content="exchange.price_history" />}
                                                     </div>
-                                                </li>
+                                                </li> */}
                                         </ul>
                                     </div>
                                 </div>
