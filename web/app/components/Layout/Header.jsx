@@ -1,6 +1,7 @@
 import React from "react";
 import {Link, PropTypes} from "react-router";
 import connectToStores from "alt/utils/connectToStores";
+import AccountInfo from "../Account/AccountInfo";
 import ActionSheet from "react-foundation-apps/src/action-sheet";
 import AccountActions from "actions/AccountActions";
 import AccountStore from "stores/AccountStore";
@@ -34,6 +35,11 @@ class Header extends React.Component {
             starredAccounts: SettingsStore.getState().starredAccounts
         }
     }
+
+    static propTypes = {
+        account: React.PropTypes.object.isRequired,
+        linkedAccounts: PropTypes.object,
+    };
 
     static contextTypes = {
         location: React.PropTypes.object,
@@ -109,7 +115,8 @@ class Header extends React.Component {
 
     render() {
         let {active} = this.state;
-        let {linkedAccounts, currentAccount, starredAccounts} = this.props;
+        let {account, isMyAccount, linkedAccounts, currentAccount, starredAccounts} = this.props;
+        let account_name = account.get("name");
         let settings = counterpart.translate("header.settings");
         let locked_tip = counterpart.translate("header.locked_tip");
         let unlocked_tip = counterpart.translate("header.unlocked_tip");
@@ -171,9 +178,6 @@ class Header extends React.Component {
             <a className={cnames({active: active.indexOf("market/") !== -1})} onClick={this._onNavigate.bind(this, `/market/${this.props.lastMarket}`)}><Translate component="span" content="header.exchange" /></a>:
             <a className={cnames({active: active.indexOf("market/") !== -1})} onClick={this._onNavigate.bind(this, `/market/MKR_OPEN.BTC`)}><Translate component="span" content="header.exchange" /></a>
 
-        {/* let {account, linkedAccounts, isMyAccount} = this.props;
-        let account_name = account.get("name"); //BIS */} 
-
         // Account selector: Only active inside the exchange
         let accountsDropDown = null;
 
@@ -227,7 +231,7 @@ class Header extends React.Component {
                         {/* <li><a className={cnames({active: active.indexOf("explorer") !== -1})} onClick={this._onNavigate.bind(this, "/explorer")}><Translate component="span" content="header.explorer" /></a></li> */}
                         <li>{tradeLink}</li>
                         <li><a className={cnames({active: active.indexOf("transfer") !== -1})} onClick={this._onNavigate.bind(this, "/transfer")}><Translate component="span" content="header.payments" /></a></li>
-                        {/* {isMyAccount ? <li><a><Link to={`/account/${account_name}/deposit-withdraw/`} activeClassName="active"><Translate content="account.deposit_withdraw"/></Link></li> : null}</a></li> //BIS */}
+                        {isMyAccount ? <li><Link to={`/account/${account_name}/deposit-withdraw/`}<Translate content="account.deposit_withdraw"/></Link></li> : null}
                     </ul>
                 </div>
                 <div className="grid-block show-for-medium shrink">
