@@ -1,7 +1,6 @@
 import React from "react";
 import {Link, PropTypes} from "react-router";
 import connectToStores from "alt/utils/connectToStores";
-import AccountInfo from "../Account/AccountInfo";
 import ActionSheet from "react-foundation-apps/src/action-sheet";
 import AccountActions from "actions/AccountActions";
 import AccountStore from "stores/AccountStore";
