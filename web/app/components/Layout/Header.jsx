@@ -36,11 +36,6 @@ class Header extends React.Component {
         }
     }
 
-    static propTypes = {
-        account: React.PropTypes.object.isRequired,
-        linkedAccounts: PropTypes.object,
-    };
-
     static contextTypes = {
         location: React.PropTypes.object,
         history: PropTypes.history
