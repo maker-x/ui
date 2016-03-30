@@ -179,7 +179,13 @@
             warning3: "Account is already in the list",
             warning4: "Key is already in the list",
             action: "Action",
-            acct_or_key:" Account / Key / Address"
+            acct_or_key:" Account / Key / Address",
+            key_viewer: "Private key viewer",
+            public: "Public key",
+            private: "Private key (WIF - Wallet Import Format)",
+            show: "show",
+            brain: "Brainkey position",
+            from: "Imported from account"
         },
         votes: {
             proxy_short: "Proxy",
@@ -187,6 +193,7 @@
             proxy: "Proxy Voting Account",
             no_proxy: "No Proxy",
             clear_proxy: "Remove proxy",
+            go_proxy: "Go to",
             name: "Name",
             info: "Info",
             votes: "Votes",
@@ -223,7 +230,13 @@
             total_budget: "Total available worker budget",
             unused_budget: "Unused worker budget",
             new: "Proposed workers",
-            active: "Active workers"
+            active: "Active workers",
+            w_approved_by: "Witnesses approved by %(account)s",
+            w_not_approved_by: "Witnesses not approved by %(account)s",
+            cm_approved_by: "Committee members approved by %(account)s",
+            cm_not_approved_by: "Committee members not approved by %(account)s",
+            already: "Account is already in the list",
+            proxy_known: "Known proxies"
         },
         options: {
             num_witnesses: "Desired Witnesses",
@@ -334,7 +347,29 @@
         witness_update: "{account} update its witness info",
         witness_pay: "Withdrew witness pay to account",
         witness_receive: "Received witness from witness",
+        committee_member_update_global_parameters: "{account} updated the global committee parameters",
         worker_create: "{account} created a worker proposal with daily pay of {pay}"
+    },
+    proposal: {
+        transfer: "Transfer {amount} from {from} to {to}",
+        limit_order_create: "Place order to buy %(buy_amount)s for %(sell_amount)s for %(account)s",
+        limit_order_sell: "Place an order to sell {amount} at {price} for {account}",
+        limit_order_buy: "Place an order to buy {amount} at {price} for {account}",
+        committee_member_update_global_parameters: "Update committee global parameters by {account}",
+        action: "Actions",
+        expires: "Expires",
+        update_account: "Update account data for {account}",
+        status: "Status",
+        update: {
+            active_approvals_to_add: "Active approvals to add",
+            active_approvals_to_remove: "Active approvals to remove",
+            owner_approvals_to_add: "Owner approvals to add",
+            owner_approvals_to_remove: "Owner approvals to remove",
+            key_approvals_to_add: "Key approvals to add",
+            key_approvals_to_remove: "Key approvals to remove",
+        },
+        approve: "Approve",
+        reject: "Reject"
     },
     transaction: {
         confirm: "Please confirm the transaction",
@@ -364,7 +399,6 @@
         burn_asset: "Burnt",
         fund_pool: "funded %(asset)s fee pool with",
         committee_member_create: "Created the committee member",
-
         withdraw_permission_create: "Gave withdrawal permission for account",
         withdraw_permission_update: "Updated withdrawal permission for account",
         withdraw_permission_claim: "Claimed withdrawal permission for account",

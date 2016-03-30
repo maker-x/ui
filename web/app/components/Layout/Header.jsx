@@ -16,7 +16,7 @@ import WalletManagerStore from "stores/WalletManagerStore";
 import cnames from "classnames";
 import TotalBalanceValue from "../Utility/TotalBalanceValue";
 import Immutable from "immutable";
-console.log()
+
 @connectToStores
 class Header extends React.Component {
 
@@ -106,8 +106,8 @@ class Header extends React.Component {
         ZfApi.publish("account_drop_down", "close");
         AccountActions.setCurrentAccount.defer(account_name);
     }
-
     render() {
+        console.log(this.props);
         let {active} = this.state;
         let {linkedAccounts, account, isMyAccount, currentAccount, starredAccounts} = this.props;
         let settings = counterpart.translate("header.settings");
@@ -224,7 +224,7 @@ class Header extends React.Component {
                         {/* <li><a className={cnames({active: active.indexOf("explorer") !== -1})} onClick={this._onNavigate.bind(this, "/explorer")}><Translate component="span" content="header.explorer" /></a></li> */}
                         <li>{tradeLink}</li>
                         <li><a className={cnames({active: active.indexOf("transfer") !== -1})} onClick={this._onNavigate.bind(this, "/transfer")}><Translate component="span" content="header.payments" /></a></li>
-                        <li><a className={cnames({active: active.indexOf(`/account/${currentAccount}/deposit-withdraw`) !== -1})} onClick={this._onNavigate.bind(this, `/account/${currentAccount}/deposit-withdraw`)}><Translate component="span" content="account.deposit_withdraw" /></a></li>
+                        {currentAccount !== null ? <li><a className={cnames({active: active.indexOf("deposit-withdraw") !== -1})} onClick={this._onNavigate.bind(this, `/account/${currentAccount}/deposit-withdraw`)}><Translate component="span" content="account.deposit_withdraw" /></a></li> : null}
                     </ul>
                 </div>
                 <div className="grid-block show-for-medium shrink">

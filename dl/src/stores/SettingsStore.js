@@ -37,8 +37,8 @@ class SettingsStore {
 
         this.hiddenAssets = Immutable.List([]);
 
-        this.preferredBases = Immutable.List(["OPEN.BTC", "CNY", "OPEN.ETH", "MKRCOIN", "DAI"]);
-        this.baseOptions = ["OPEN.BTC", "CNY", "OPEN.ETH", "MKRCOIN", "DAI"];
+        this.preferredBases = Immutable.List(["OPEN.BTC", "CNY", "OPEN.ETH", "MKRCOIN", "DAI", "MKR"]);
+        this.baseOptions = ["OPEN.BTC", "CNY", "OPEN.ETH", "MKRCOIN", "DAI", "MKR"];
 
         this.starredMarkets = Immutable.Map([
 

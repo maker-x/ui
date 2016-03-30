@@ -96,7 +96,7 @@ class AccountLeftPanel extends React.Component {
                 {/* {isMyAccount ?
                 <div className="grid-block shrink bottom">
                     <div className="center">
-                        <a href data-tip="Create New Account" data-place="top" onClick={this.onCreateAccountClick.bind(this)}><Icon name="plus-circle"/></a>
+                        <a href data-tip="ADVANCED" data-place="top" onClick={this.onCreateAccountClick.bind(this)}><Icon name="plus-circle"/></a>
                     </div>
                 </div> : null} */}
             </div>
