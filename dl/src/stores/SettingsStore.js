@@ -37,25 +37,29 @@ class SettingsStore {
 
         this.hiddenAssets = Immutable.List([]);
 
-        this.preferredBases = Immutable.List(["OPEN.BTC", "CNY", "OPEN.ETH", "MKRCOIN", "DAI", "MKR"]);
-        this.baseOptions = ["OPEN.BTC", "CNY", "OPEN.ETH", "MKRCOIN", "DAI", "MKR"];
+        this.preferredBases = Immutable.List(["OPEN.BTC", "OPEN.ETH", "CNY", "DAI", "MKR"]);
+        this.baseOptions = ["OPEN.BTC", "OPEN.ETH", "CNY", "DAI", "MKR"];
 
         this.starredMarkets = Immutable.Map([
 
             // OPEN.BTC BASE
             ["MKR_OPEN.BTC", {"quote":"MKR","base": "OPEN.BTC"} ],
-            ["DAI_OPEN.BTC", {"quote":"DAI","base": "OPEN.BTC"} ],
 
             // OPEN.ETH BASE
             ["MKR_OPEN.ETH", {"quote":"MKR","base": "OPEN.ETH"} ],
-            ["DAI_OPEN.ETH", {"quote":"DAI","base": "OPEN.ETH"} ],
 
             // CNY BASE
             ["MKR_CNY", {"quote":"MKR","base": "CNY"} ],
-            ["DAI_CNY", {"quote":"DAI","base": "CNY"} ],
 
-            // MKRCOIN BASE
-            ["MKR_MKRCOIN", {"quote":"MKR","base": "MKRCOIN"} ],
+            // DAI BASE
+            ["MKR_DAI", {"quote":"MKR","base": "DAI"} ],
+            ["OPEN.DASH_DAI", {"quote":"OPEN.DASH","base": "DAI"} ],
+            ["OPEN.LTC_DAI", {"quote":"OPEN.LTC","base": "DAI"} ],
+            ["BTS_DAI", {"quote":"BTS","base": "DAI"} ],
+            ["OPEN.BTC_DAI", {"quote":"OPEN.BTC","base": "DAI"} ],
+            ["OPEN.ETH_DAI", {"quote":"OPEN.ETH","base": "DAI"} ],
+            ["OPEN.DOGE_DAI", {"quote":"OPEN.DOGE","base": "DAI"} ],
+            ["CNY_DAI", {"quote":"CNY","base": "DAI"} ],
 
         ]);
 

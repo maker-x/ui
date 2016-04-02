@@ -56,7 +56,7 @@ class OrderRow extends React.Component {
         let isAskOrder = market_utils.isAsk(order, base);
         let tdClass = classNames({orderHistoryBid: !isAskOrder, orderHistoryAsk: isAskOrder});
 
-        let priceSymbol = showSymbols ? <span>{` ${base.get("symbol")}/${quote.get("symbol")}`}</span> : null;
+        let priceSymbol = showSymbols ? <span>{utils.replaceName(base.get("symbol"))}/${utils.replaceName(quote.get("symbol"))}`}</span> : null;
         let valueSymbol = showSymbols ? " " + base.get("symbol") : null;
         let amountSymbol = showSymbols ? " " + quote.get("symbol") : null;
 

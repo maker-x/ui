@@ -109,7 +109,7 @@ class AccountSelector extends React.Component {
 
                 <div className="content-area">
                     <div className="header-area">
-                        {error ? null : <div className="right-label"><span>{member_status}</span> &nbsp; <span>{lookup_display}</span></div>}
+                        {/* {error ? null : <div className="right-label">  <span>{member_status}</span>  &nbsp; <span>{lookup_display}</span></div>} */}
                         <Translate component="label" content={this.props.label}/>
                     </div>
                     <div className="input-area">

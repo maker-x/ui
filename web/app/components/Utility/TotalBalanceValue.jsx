@@ -206,7 +206,7 @@ class TotalValue extends React.Component {
                 let symbol = assets[asset].get("symbol");
                 let amount = utils.get_asset_amount(assetValues[asset], toAsset);
                 amount = utils.format_number(amount, Math.abs(amount) > 100 ? 0 : 2);
-                totalsTip = totalsTip += `<tr><td>${symbol}:&nbsp;</td><td style="text-align: right;">${amount} ${toAsset.get("symbol")}</td></tr>`;
+                totalsTip = totalsTip += `<tr><td>${symbol}:&nbsp;</td><td style="text-align: right;">${amount} <AssetName name={toAsset.get("symbol")} /></td></tr>`;
             }
         }
 
