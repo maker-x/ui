@@ -115,10 +115,17 @@ class Header extends React.Component {
         ZfApi.publish("account_drop_down", "close");
         AccountActions.setCurrentAccount.defer(account_name);
     }
+
+    onClickUser(account, e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        this.context.history.pushState(null, `/account/${account}/overview`);
+    }
+
     render() {
-        console.log(this.props);
         let {active} = this.state;
-        let {linkedAccounts, account, isMyAccount, currentAccount, starredAccounts} = this.props;
+        let {linkedAccounts, currentAccount, starredAccounts} = this.props;
         let settings = counterpart.translate("header.settings");
         let locked_tip = counterpart.translate("header.locked_tip");
         let unlocked_tip = counterpart.translate("header.unlocked_tip");
@@ -142,20 +149,19 @@ class Header extends React.Component {
 
         let myAccounts = AccountStore.getMyAccounts();
 
-        let myAccountsList = Immutable.List(myAccounts);
-
         let walletBalance = myAccounts.length ? (
-                            <div className="grp-menu-item" style={{paddingRight: "0.5rem"}} >
+                            <div className="grp-menu-item" style={{paddingRight: "0.5rem", fontSize: "0.9rem"}} >
                                 <TotalBalanceValue.AccountWrapper accounts={myAccounts} inHeader={true}/>
                             </div>) : null;
 
-        if (linkedAccounts.size > 1) {
+        if (linkedAccounts.size > 0) {
             linkToAccountOrDashboard = (
                 <a className={cnames({active: active === "/" || active.indexOf("dashboard") !== -1})} onClick={this._onNavigate.bind(this, "/dashboard")}>
-                    <Translate component="span" content="header.dashboard" />
+                    <Translate component="span" content="account.home" />
                 </a>
             );
-        } else if (linkedAccounts.size === 1) {
+        } 
+        /*else if (linkedAccounts.size === 1) {
                 linkToAccountOrDashboard = (
                     <a className={cnames({active: active.indexOf("account/") !== -1})} onClick={this._onNavigate.bind(this, `/account/${linkedAccounts.first()}/overview/`)}>
                         <Translate component="span" content="header.account" />
@@ -168,6 +174,7 @@ class Header extends React.Component {
                 </a>
             );
         }
+        */
         let lock_unlock = null;
         if (this.props.current_wallet) lock_unlock = (
             <div className="grp-menu-item" >
@@ -178,12 +185,12 @@ class Header extends React.Component {
 
         let tradeLink = this.props.lastMarket && active.indexOf("market/") === -1 ?
             <a className={cnames({active: active.indexOf("market/") !== -1})} onClick={this._onNavigate.bind(this, `/market/${this.props.lastMarket}`)}><Translate component="span" content="header.exchange" /></a>:
-            <a className={cnames({active: active.indexOf("market/") !== -1})} onClick={this._onNavigate.bind(this, `/market/MKR_OPEN.BTC`)}><Translate component="span" content="header.exchange" /></a>
+            <a className={cnames({active: active.indexOf("market/") !== -1})} onClick={this._onNavigate.bind(this, `/market/USD_BTS`)}><Translate component="span" content="header.exchange" /></a>
 
         // Account selector: Only active inside the exchange
         let accountsDropDown = null;
 
-        if (currentAccount && active.indexOf("market/") !== -1) {
+        if (currentAccount) {
 
             let account_display_name = currentAccount.length > 20 ? `${currentAccount.slice(0, 20)}..` : currentAccount;
             if (tradingAccounts.indexOf(currentAccount) < 0) {
@@ -202,7 +209,7 @@ class Header extends React.Component {
                     <ActionSheet>
                         <ActionSheet.Button title="">
                             <a className="button">
-                                <Icon name="user"/>&nbsp;{account_display_name} &nbsp;<Icon name="chevron-down"/>
+                                <span onClick={this.onClickUser.bind(this, currentAccount)}><Icon name="user"/></span>&nbsp;{account_display_name} &nbsp;<Icon name="chevron-down"/>
                             </a>
                         </ActionSheet.Button>
                         <ActionSheet.Content >
@@ -230,17 +237,22 @@ class Header extends React.Component {
                 <div className="grid-block show-for-medium">
                     <ul className="menu-bar">
                         <li>{linkToAccountOrDashboard}</li>
-                        {/* <li><a className={cnames({active: active.indexOf("explorer") !== -1})} onClick={this._onNavigate.bind(this, "/explorer")}><Translate component="span" content="header.explorer" /></a></li> */}
+                        <li>
+                            <a className={cnames({active: active.indexOf("account/") !== -1})} onClick={this._onNavigate.bind(this, `/account/${linkedAccounts.first()}/overview/`)}>
+                                <Translate component="span" content="header.account" />
+                            </a>
+                        </li>
                         <li>{tradeLink}</li>
                         <li><a className={cnames({active: active.indexOf("transfer") !== -1})} onClick={this._onNavigate.bind(this, "/transfer")}><Translate component="span" content="header.payments" /></a></li>
-                        {currentAccount !== null ? <li><a className={cnames({active: active.indexOf("deposit-withdraw") !== -1})} onClick={this._onNavigate.bind(this, `/account/${currentAccount}/deposit-withdraw`)}><Translate component="span" content="account.deposit_withdraw" /></a></li> : null}
+                        {/*<li><a className={cnames({active: active.indexOf("explorer") !== -1})} onClick={this._onNavigate.bind(this, "/explorer")}><Translate component="span" content="header.explorer" /></a></li>*/}
+                        {currentAccount && myAccounts.indexOf(currentAccount) !== -1 ? <li><Link to={`/deposit-withdraw/`} activeClassName="active"><Translate content="account.deposit_withdraw"/></Link></li> : null}
                     </ul>
                 </div>
                 <div className="grid-block show-for-medium shrink">
                     <div className="grp-menu-items-group header-right-menu">
-                        <div className="grid-block shrink overflow-visible account-drop-down">
+                        {/*<div className="grid-block shrink overflow-visible account-drop-down">
                             {accountsDropDown}
-                        </div>
+                        </div>*/}
                         {walletBalance}
                         <div className="grp-menu-item" >
                             <Link to="/settings" data-tip={settings} data-place="bottom" data-type="light"><Icon name="cog"/></Link>

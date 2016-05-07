@@ -113,8 +113,8 @@ class AccountPermissions extends React.Component {
     onPublish() {
         let s = this.state;
         let updated_account = this.props.account.toJS();
-
-        // Set fee asset
+        
+        // Set fee asset        
         updated_account.fee = {
             amount: 0,
             asset_id: accountUtils.getFinalFeeAsset(updated_account.id, "account_update")
@@ -216,7 +216,7 @@ class AccountPermissions extends React.Component {
         return (
             <div className="grid-content">
                 <div className="generic-bordered-box">
-                    <Tabs setting="permissionsTabs" tabsClass="no-padding bordered-header" contentClass="grid-content no-overflow large-8">
+                    <Tabs setting="permissionsTabs" tabsClass="no-padding bordered-header" contentClass="grid-content no-overflow">
                     
                     <Tab title="account.perm.active">
                             <HelpContent style={{maxWidth: "800px"}} path="components/AccountPermActive" />

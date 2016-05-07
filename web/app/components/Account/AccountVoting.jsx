@@ -136,7 +136,7 @@ class AccountVoting extends React.Component {
         updated_account.new_options.num_witness = this.state.witnesses.size;
         updated_account.new_options.num_committee = this.state.committee.size;
 
-        // Set fee asset
+        // Set fee asset        
         updated_account.fee = {
             amount: 0,
             asset_id: accountUtils.getFinalFeeAsset(updated_account.id, "account_update")
@@ -478,8 +478,6 @@ class AccountVoting extends React.Component {
                         </button>) : null}
                 </div>
 
-
-                <div className="exchange-bordered">
                 <Tabs setting="votingTab" tabsClass="no-padding bordered-header" contentClass="grid-content">
 
                         <Tab title="account.votes.proxy_short">
@@ -614,7 +612,6 @@ class AccountVoting extends React.Component {
                             </div>
                         </Tab>
                 </Tabs>
-                </div>
             </div>
         )
     }

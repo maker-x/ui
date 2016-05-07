@@ -81,7 +81,6 @@ class MobileMenu extends React.Component {
                           <li>{tradeLink}</li>}
                         <li onClick={this.onClick}><Link to="transfer"><Translate component="span" content="header.payments"/></Link></li>
                         <li onClick={this.onClick}><Link to="settings"><Translate component="span" content="header.settings"/></Link></li>
-                        
                     </ul>
                 </section>
 

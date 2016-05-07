@@ -6,7 +6,11 @@ import utils from "common/utils";
 
 /**
  *
+<<<<<<< HEAD
  *  Given an operation type, displays the BTS fee for that operation
+=======
+ *  Given an operation type, displays the CORE fee for that operation
+>>>>>>> cnx/master
  *
  */
 

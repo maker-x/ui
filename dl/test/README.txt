@@ -34,7 +34,11 @@ dbg_make_uia nathan MORE
 issue_asset nathan 2323231232 TEST "" true
 issue_asset nathan 2323231232 MORE "" true
 >>> list_account_balances "1.2.15"
+<<<<<<< HEAD
 >>> transfer "1.2.15" "1.2.0" 1 "BTS" "memo" true
+=======
+>>> transfer "1.2.15" "1.2.0" 1 "GPH" "memo" true
+>>>>>>> cnx/master
 
 In these unit tests the "import_key" step is not necessary because the
 genesis key is saved in the source code.
@@ -62,7 +66,11 @@ dbg_make_mia 1.2.15 USD
 Place a limit order:
 
 sell_asset ACCOUNT_ID AMOUNT ASSET FOR_AMOUNT FOR_ASSET EXPIRATION fill_or_kill broadcast
+<<<<<<< HEAD
 ex: sell_asset 1.2.15 1000 BTS 100 USD 100000 false true
+=======
+ex: sell_asset 1.2.15 1000 CORE 100 USD 100000 false true
+>>>>>>> cnx/master
 
 Place a short order:
 

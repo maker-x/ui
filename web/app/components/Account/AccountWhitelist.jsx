@@ -107,7 +107,7 @@ class AccountWhitelist extends React.Component {
         super();
 
         this.state = {
-            accountName: null,
+            accountName: "",
             accountToList: null
         };
     }
@@ -262,7 +262,6 @@ class AccountWhitelist extends React.Component {
             </div>
         )
     }
-
 }
 
 export default AccountWhitelist;

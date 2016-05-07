@@ -17,7 +17,7 @@ import TransactionConfirmStore from "stores/TransactionConfirmStore";
 import {FetchChainObjects} from "api/ChainStore";
 
 
-const PROD = true;
+const PROD = false;
 const hostConfig = PROD ? { // Prod config
     host: 'x.makerdao.com',
     path: '/trollbox',
@@ -73,15 +73,22 @@ export default class Chat extends React.Component {
     constructor(props) {
         super(props);
 
+        let anonName = "anonymous" + Math.round(10000 * Math.random());
         this.state = {
-            messages: [{user: counterpart.translate("chat.welcome_user"), message: counterpart.translate("chat.welcome")}],
+            messages: [{
+                user: counterpart.translate("chat.welcome_user"),
+                message: counterpart.translate("chat.welcome"),
+                color: "black"
+            }],
             connected: false,
             showChat: props.viewSettings.get("showChat", true),
             myColor: props.viewSettings.get("chatColor", "#904E4E"),
-            userName: props.viewSettings.get("chatUsername", "anonymous"),
+            userName: props.viewSettings.get("chatUsername", anonName),
             shouldScroll: true,
             loading: true,
-            docked: props.viewSettings.get("dockedChat", false)
+            anonName: anonName,
+            docked: props.viewSettings.get("dockedChat", false),
+            hasFetchedHistory: false
         };
 
         this._peer = null;
@@ -157,7 +164,6 @@ export default class Chat extends React.Component {
         let peersArray = this.connections.map((conn, peer) => {
             return peer;
         }).toArray();
-        console.log("peersArray:", peersArray);
 
         this._broadCastMessage({
             peers: peersArray
@@ -165,6 +171,7 @@ export default class Chat extends React.Component {
     }    
 
     _connectToPeers(broadcast = false, peers) {
+        let shouldUpdate = false;
         if (!Array.isArray(peers)) {
             peers = [peers];
         }
@@ -172,6 +179,7 @@ export default class Chat extends React.Component {
         // this._peers = Immutable.List(peers);
         peers.forEach(peer => {
             if (peer !== this._myID && !this.connections.has(peer)) {
+                shouldUpdate = true;
                 let conn = this._peer.connect(peer);
 
                 conn.on('data', this._handleMessage);
@@ -179,7 +187,10 @@ export default class Chat extends React.Component {
                 this.connections = this.connections.set(peer, conn);
             }
         });
-        this.forceUpdate();
+        if (shouldUpdate) {
+            this.forceUpdate();
+        }
+
         // if (broadcast) {
         //     setTimeout(this._broadCastPeers.bind(this), 2000);
         // }
@@ -193,11 +204,37 @@ export default class Chat extends React.Component {
             return this._connectToPeers(false, data.peers);
         }
 
-        this.state.messages.push(data);
-        if (this.state.messages.length >= 100) {
-            this.state.messages.shift();
+        if ("requestHistory" in data) {
+            return this.sendHistory(this.connections.get(data.requestHistory));
         }
-        this.forceUpdate(this._scrollToBottom.bind(this));
+
+        if (!this.state.fetchingHistory && data.historyCount && !this.state.hasFetchedHistory) {
+            this.setState({
+                fetchingHistory: true
+            });
+            return this.connections.get(data.id).send({requestHistory: this._myID});
+        }
+
+        if (data.history) {
+            this.setState({
+                fetchingHistory: false,
+                hasFetchedHistory: true
+            });
+            
+            data.history.forEach(msg => {
+                this.state.messages.push(msg);
+            });
+            this.forceUpdate();
+        }
+
+        if (data.message && data.user && data.color) {
+            this.state.messages.push(data);
+            if (this.state.messages.length >= 100) {
+                this.state.messages.shift();
+            }
+
+            this.forceUpdate(this._scrollToBottom.bind(this));
+        }
     }
 
     _scrollToBottom() {
@@ -216,24 +253,29 @@ export default class Chat extends React.Component {
         }
     }
 
+    sendHistory(c) {
+        c.send({history: this.state.messages.filter((msg) => {return msg.user !== "SYSTEM" && msg.user !== "Welcome to Bitshares"})});
+    }
+
     onConnection(c) {
-        console.log("connection:", c.peer);
         this.connections = this.connections.set(c.peer, c);
         c.on('data', this._handleMessage);
         c.on('close', this.onDisconnect.bind(this, c.peer));
+        setTimeout(() => {c.send({id: this._myID,historyCount: this.state.messages.reduce((value, msg) => {return value + (msg.user !== "SYSTEM" ? 1 : 0)}, 0)})}, 200);
         this.forceUpdate();
     }
 
     onDisconnect(peer) {
-        console.log("disconnected:", peer);
+        console.log("onDisconnect peer:", peer);
         this.connections = this.connections.delete(peer);
-        this.forceUpdate();
-
+        
         if (!this.connections.size && !this.state.open) {
             this.setState({
                 connected: false
             });
         }
+
+        this.forceUpdate();
     }
 
     onTip(input) {
@@ -449,6 +491,10 @@ export default class Chat extends React.Component {
 
 
         let messages = this.state.messages.map((msg, index) => {
+            if (!msg.user || !msg.color || !msg.message) {
+                return null;
+            }
+
             let isMine = msg.user === userName || msg.user === this._myID;
 
             return (
@@ -461,6 +507,8 @@ export default class Chat extends React.Component {
                     isMine={isMine}
                 />
             );
+        }).filter((a) => {
+            return a !== null;
         });
 
         let {showChat, showSettings, connected} = this.state;
@@ -486,8 +534,7 @@ export default class Chat extends React.Component {
             return <option key={account} value={account}>{account}</option>;
         }).toArray();
 
-        accountOptions.push(<option key="default" value={"anonymous"}>anonymous</option>)
-
+        accountOptions.push(<option key="default" value={this.state.anonName}>{this.state.anonName}</option>)
 
         let settings = (
             <div style={{padding: 10}}>

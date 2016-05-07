@@ -30,6 +30,11 @@ class AccountOrders extends React.Component {
         let markets = {};
 
         let marketOrders ={};
+
+        if (!account.get("orders")) {
+            return null;
+        }
+
         account.get("orders").forEach(orderID => {
             let order = ChainStore.getObject(orderID).toJS();
             let base = ChainStore.getAsset(order.sell_price.base.asset_id);
@@ -60,6 +65,9 @@ class AccountOrders extends React.Component {
                 if (!marketOrders[marketID]) {
                     marketOrders[marketID] = [];
                 }
+
+                let {price} = market_utils.parseOrder(order, marketBase, marketQuote);
+
                 marketOrders[marketID].push(
                     <OrderRow
                         ref={markets[marketID].base.symbol}
@@ -71,6 +79,7 @@ class AccountOrders extends React.Component {
                         showSymbols={false}
                         invert={true}
                         onCancel={this._cancelLimitOrder.bind(this, order.id)}
+                        price={price.full}
                     />
                 );
             }
@@ -84,13 +93,15 @@ class AccountOrders extends React.Component {
                 tables.push(
                     <div key={market} style={marketIndex > 0 ? {paddingTop: "1rem"} : {}}>
                     <div className="exchange-bordered">
-                            <div className="block-content-header">
+                            <h5 style={{paddingLeft: 20, marginBottom: 0}}>
                                 <MarketLink quote={markets[market].quote.id} base={markets[market].base.id} />
-                            </div>
+                            </h5>
                             <table className="table table-striped text-right ">
                                 <TableHeader baseSymbol={markets[market].base.symbol} quoteSymbol={markets[market].quote.symbol}/>
                                 <tbody>
-                                    {marketOrders[market]}
+                                    {marketOrders[market].sort((a, b) => {
+                                        return a.props.price - b.props.price;
+                                    })}
                                 </tbody>
                             </table>
                         </div>
@@ -101,12 +112,9 @@ class AccountOrders extends React.Component {
         }
 
         return (
-            <div className="grid-block">
-                <div className="grid-content small-12">
-                    {!tables.length ? <div style={{fontSize: "2rem"}}><Translate content="account.no_orders" /></div> : null}
-                    {tables}
-                </div>
-
+            <div className="grid-content no-overflow" style={{minWidth: "50rem", paddingBottom: 15}}>
+                {!tables.length ? <div style={{fontSize: "2rem"}}><Translate content="account.no_orders" /></div> : null}
+                {tables}
             </div>
         );
     }

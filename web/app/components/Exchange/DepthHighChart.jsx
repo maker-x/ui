@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {PropTypes} from "react";
 import Immutable from "immutable";
-import Highstock from "react-highcharts/bundle/highstock";
+import Highcharts from "highcharts/highstock";
+var ReactHighstock = require("react-highcharts/dist/ReactHighstock");
 import utils from "common/utils";
 import counterpart from "counterpart";
 import {cloneDeep} from "lodash";
@@ -199,13 +200,13 @@ class DepthHighChart extends React.Component {
             let middleValue = (flatAsks[0][0] + flatBids[flatBids.length - 1][0]) / 2;
             let adjustedSpread = spread * power;
             
-            config.xAxis.min = middleValue * (this.props.noFrame ? 0.8 : 0.50);
-            config.xAxis.max = middleValue * (this.props.noFrame ? 1.2 : 1.50);
+            config.xAxis.min = middleValue * 0.1 // middleValue * (this.props.noFrame ? 0.8 : 0.50);
+            config.xAxis.max = middleValue * 1.9; //(this.props.noFrame ? 1.2 : 1.50);
          
-            if (adjustedSpread > 0 && adjustedSpread > middleValue) {
-                config.xAxis.min = Math.max(0, middleValue - 1.5 * adjustedSpread);
-                config.xAxis.max = middleValue + 1.5 * adjustedSpread;
-            }
+            // if (adjustedSpread > 0 && adjustedSpread > middleValue) {
+            //     config.xAxis.min = Math.max(0, middleValue - 1.5 * adjustedSpread);
+            //     config.xAxis.max = middleValue + 1.5 * adjustedSpread;
+            // }
         }
 
         if (this.props.hasPrediction) {
@@ -376,7 +377,7 @@ class DepthHighChart extends React.Component {
                         {!flatBids.length && !flatAsks.length && !flatCalls.length ? <span className="no-data"><Translate content="exchange.no_data" /></span> : null}
                         {this.props.noText ? null : <p className="bid-total">{utils.format_number(totalBids, base.get("precision"))} {baseSymbol}</p>}
                         {this.props.noText ? null : <p className="ask-total">{utils.format_number(totalAsks, quote.get("precision"))} {quoteSymbol}</p>}
-                        {flatBids || flatAsks || flatCalls ? <Highstock config={config}/> : null}
+                        {flatBids || flatAsks || flatCalls ? <ReactHighstock config={config}/> : null}
                 </div>
             );
         } else {
@@ -388,7 +389,7 @@ class DepthHighChart extends React.Component {
                             {this.props.noText ? null : <span className="ask-total float-right">{utils.format_number(totalAsks, quote.get("precision"))} <AssetName name={quoteSymbol} /></span>}                        
                         </div>
                         {!flatBids.length && !flatAsks.length && !flatCalls.length ? <span className="no-data"><Translate content="exchange.no_data" /></span> : null}
-                        {flatBids || flatAsks || flatCalls ? <Highstock ref="depthChart" config={config}/> : null}
+                        {flatBids || flatAsks || flatCalls ? <ReactHighstock ref="depthChart" config={config}/> : null}
                     </div>
                 </div>
             );

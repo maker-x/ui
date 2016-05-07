@@ -32,7 +32,11 @@ describe( "testkeys", ()=> {
             var owner = d.toPublicKey().toAddressString()
             initial_balances.push({
                 owner,
+<<<<<<< HEAD
                 asset_symbol: "BTS",
+=======
+                asset_symbol: "CORE",
+>>>>>>> cnx/master
                 amount: "1"
             })
         }

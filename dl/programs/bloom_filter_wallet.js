@@ -65,7 +65,11 @@ fs.readFile('bloom.dat', function (err, data) {
                 if(running_count % 100 === 0) console.error('processing', running_count)
                 if( ! keys.public_keys) unsupportedJsonFormat()
                 var key = keys.public_keys[k]
+<<<<<<< HEAD
                 if( /^BTS/.test(key) ) key = "BTS" + key.substring(3)
+=======
+                if( /^GPH/.test(key) ) key = "BTS" + key.substring(3)
+>>>>>>> cnx/master
                 if(in_bloom( key )) continue
                 var addresses = key_utils.addresses(key)
                 var addy_found = false
