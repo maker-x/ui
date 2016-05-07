@@ -44,15 +44,18 @@ class SettingsStore {
 
             // OPEN.BTC BASE
             ["MKR_OPEN.BTC", {"quote":"MKR","base": "OPEN.BTC"} ],
+            ["OPEN.DGD_OPEN.BTC", {"quote":"OPEN.DGD","base": "OPEN.BTC"} ],
+            ["OPEN.DAO_OPEN.BTC", {"quote":"OPEN.DAO","base": "OPEN.BTC"} ],
 
             // OPEN.ETH BASE
             ["MKR_OPEN.ETH", {"quote":"MKR","base": "OPEN.ETH"} ],
-
-            // CNY BASE
-            ["MKR_CNY", {"quote":"MKR","base": "CNY"} ],
+            ["OPEN.DGD_OPEN.ETH", {"quote":"OPEN.DGD","base": "OPEN.ETH"} ],
+            ["OPEN.DAO_OPEN.ETH", {"quote":"OPEN.DAO","base": "OPEN.ETH"} ],
 
             // DAI BASE
             ["MKR_DAI", {"quote":"MKR","base": "DAI"} ],
+            ["OPEN.DGD_DAI", {"quote":"OPEN.DGD","base": "DAI"} ],
+            ["OPEN.DAO_DAI", {"quote":"OPEN.DAO","base": "DAI"} ],
             ["OPEN.DASH_DAI", {"quote":"OPEN.DASH","base": "DAI"} ],
             ["OPEN.LTC_DAI", {"quote":"OPEN.LTC","base": "DAI"} ],
             ["BTS_DAI", {"quote":"BTS","base": "DAI"} ],
