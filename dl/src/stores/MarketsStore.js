@@ -43,7 +43,7 @@ class MarketsStore {
         this.bucketSize = this._getBucketSize();
         this.priceHistory = [];
         this.lowestCallPrice = null;
-        this.marketBase = "BTS";
+        this.marketBase = "CORE";
         this.marketStats = Immutable.Map({
             change: 0,
             volumeBase: 0,
@@ -54,13 +54,13 @@ class MarketsStore {
 
         this.baseAsset = {
             id: "1.3.0",
-            symbol: "BTS",
+            symbol: "CORE",
             precision: 5
         };
 
         this.coreAsset = {
             id: "1.3.0",
-            symbol: "BTS",
+            symbol: "CORE",
             precision: 5
         };
 
@@ -88,7 +88,7 @@ class MarketsStore {
 
     _getBucketSize() {
         let bs = ls ? ls.getItem("__graphene___bucketSize") : null;
-        return bs ? parseInt(bs) : 1 * 3600;
+        return bs ? parseInt(bs) : 4 * 3600;
     }
 
     _setBucketSize(size) {
@@ -739,8 +739,6 @@ class MarketsStore {
                 maintenanceRatio = this.baseAsset.getIn(["bitasset", "current_feed", "maintenance_collateral_ratio"]) / 1000;
                 settlementPrice = market_utils.getFeedPrice(
                     this.baseAsset.getIn(["bitasset", "current_feed", "settlement_price"]),
-                    this.quoteAsset,
-                    this.baseAsset,
                     true
                 )
                  this.lowestCallPrice = settlementPrice / 5;
@@ -749,8 +747,7 @@ class MarketsStore {
                 maintenanceRatio = this.quoteAsset.getIn(["bitasset", "current_feed", "maintenance_collateral_ratio"]) / 1000;
                 settlementPrice = market_utils.getFeedPrice(
                     this.quoteAsset.getIn(["bitasset", "current_feed", "settlement_price"]),
-                    this.baseAsset,
-                    this.quoteAsset
+                    false
                 )
                 this.lowestCallPrice = settlementPrice * 5;
             }

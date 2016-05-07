@@ -91,12 +91,13 @@ class BuySell extends React.Component {
                            null;
 
         // Fee asset selection
-        if( feeAssets[1].getIn(["options", "core_exchange_rate", "quote", "asset_id"]) === "1.3.0" && feeAssets[1].getIn(["options", "core_exchange_rate", "base", "asset_id"]) === "1.3.0" ) {
+        if( feeAssets[1] && feeAssets[1].getIn(["options", "core_exchange_rate", "quote", "asset_id"]) === "1.3.0" && feeAssets[1].getIn(["options", "core_exchange_rate", "base", "asset_id"]) === "1.3.0" ) {
             feeAsset = feeAssets[0];
             feeAssets.splice(1, 1);
         }
         let options = feeAssets.map(asset => {
-            return <option key={asset.get("id")} value={asset.get("id")}>{utils.replaceName(asset.get("symbol"))}</option>;
+            let {name, prefix} = utils.replaceName(asset.get("symbol"), asset.get("bitasset") && !asset.getIn(["bitasset", "is_prediction_market"]) && asset.get("issuer") === "1.2.0");
+            return <option key={asset.get("id")} value={asset.get("id")}>{prefix}{name}</option>;
         });
 
         // Subtract fee from amount to sell
@@ -114,12 +115,11 @@ class BuySell extends React.Component {
                     <div className={"exchange-content-header " + type}>
                         <span>{buttonText} <AssetName name={quote.get("symbol")} /></span>
                         {this.props.onFlip ? <span onClick={this.props.onFlip} style={{cursor: "pointer", fontSize: "1rem"}}>  &#8646;</span> : null}
-                        <div onClick={this.props.onToggleOpen} className="float-right clickable">{caret}</div>
+                        {this.props.smallScreen ? <div onClick={this.props.onToggleOpen} className="float-right clickable hide-for-large">{caret}</div> : null}
                     </div>
-                    {!this.props.isOpen ? null : (
+                    {!this.props.isOpen && this.props.smallScreen ? null : (
                     <form className="order-form" noValidate>
                         <div className="grid-block vertical no-overflow no-padding">
-
                                 <div className="grid-block no-padding buy-sell-row">
                                     <div className="grid-block small-3 no-margin no-overflow buy-sell-label">
                                         <Translate content="exchange.price" />:
@@ -131,7 +131,6 @@ class BuySell extends React.Component {
                                         <AssetName name={base.get("symbol")} />
                                     </div>
                                 </div>
-
                                 <div className="grid-block no-padding buy-sell-row">
                                     <div className="grid-block small-3 no-margin no-overflow buy-sell-label">
                                         <Translate content="transfer.amount" />:
@@ -143,7 +142,6 @@ class BuySell extends React.Component {
                                         <AssetName name={quote.get("symbol")} />
                                     </div>
                                 </div>
-
                                 <div className="grid-block no-padding buy-sell-row bottom-row">
                                     <div className="grid-block small-3 no-margin no-overflow buy-sell-label">
                                         <Translate content="exchange.total" />:
@@ -155,7 +153,6 @@ class BuySell extends React.Component {
                                         <AssetName name={base.get("symbol")} />
                                     </div>
                                 </div>
-
                                 <div className="grid-block no-padding buy-sell-row">
                                     <div className="grid-block small-3 no-margin no-overflow buy-sell-label">
                                         <Translate content="transfer.fee" />:
@@ -168,13 +165,10 @@ class BuySell extends React.Component {
                                             {options}
                                         </select>
                                     </div>
-
                                 </div>
-
                             </div>
                             <div>
                                 <div className="grid-content clear-fix no-padding">
-
                                     <table className="float-left">
                                         <tbody>
                                           <tr className="buy-sell-info">
@@ -197,7 +191,6 @@ class BuySell extends React.Component {
                                         </tr>
                                         </tbody>
                                     </table>
-
                                     {/* BUY/SELL button */}
                                     {disabledText ?
                                         (<div className="float-right" data-tip={disabledText} data-place="right" data-type="light">
@@ -207,7 +200,6 @@ class BuySell extends React.Component {
                                             <input style={{margin: 0}} className={buttonClass} type="submit" onClick={onSubmit.bind(this, true)} value={buttonText} />
                                         </div>)
                                     }
-
                                 {/* SHORT button */}
                                     {disabledText && isPredictionMarket ? (
                                         <div style={{paddingRight: 10}} className="float-right" data-tip={disabledText} data-place="right" data-type="light">
@@ -217,10 +209,8 @@ class BuySell extends React.Component {
                                             <input style={{margin: 0}} className={buttonClass} type="submit" onClick={onSubmit.bind(this, false)} value={forceSellText} />
                                         </div>) : null
                                     }
-
                                   </div>
                             </div>
-
                     </form>)}
                 </div>
             </div>

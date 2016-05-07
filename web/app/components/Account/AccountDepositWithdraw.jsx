@@ -1,6 +1,7 @@
 import config from "chain/config";
 import React from "react";
 import {Link} from "react-router";
+import accountUtils from "common/account_utils";
 import Translate from "react-translate-component";
 import ChainStore from "api/ChainStore";
 import ChainTypes from "../Utility/ChainTypes";
@@ -213,7 +214,12 @@ class AccountDepositWithdraw extends React.Component {
         );
     }
 
+    componentWillMount() {
+        accountUtils.getFinalFeeAsset(this.props.account, "transfer");
+    }
+
     render() {
+        console.log("balance");
         let openledger_deprecated_message =
             "OpenLedger is replacing the original assets like OPENBTC with " +
             "namespaced-asset names like OPEN.BTC in order to protect against " +
@@ -294,10 +300,10 @@ class AccountDepositWithdraw extends React.Component {
                     {/*    </div> */}
                 </Tabs.Tab>
 
-                <Tabs.Tab title="CNY">
+                <Tabs.Tab title="DGD">
                     {/* <div className="content-block"> */}
-                        <h3>Renminbi <Translate content="gateway.gateway" /></h3>
-                        <div className="float-right"><a href="http://www.transwiser.com" target="_blank">VISIT TRANSWISER</a></div>
+                        <h3>Digix <Translate content="gateway.gateway" /></h3>
+                        <div className="float-right"><a href="https://www.ccedk.com/" target="__blank">VISIT CCEDK</a></div>
                         <table className="table">
                             <thead>
                             <tr>
@@ -308,21 +314,40 @@ class AccountDepositWithdraw extends React.Component {
                             </tr>
                             </thead>
                             <tbody>
-                        {/*<TranswiserDepositWithdraw
-                            issuerAccount="transwiser-wallet"
-                            account={this.props.account.get('name')}
-                            receiveAsset="TCNY" /> */}
-                        <TranswiserDepositWithdraw
-                            issuerAccount="transwiser-wallet"
-                            account={this.props.account.get('name')}
-                            receiveAsset="CNY" />
-                        {/* <TranswiserDepositWithdraw
-                            issuerAccount="transwiser-wallet"
-                            account={this.props.account.get('name')}
-                            receiveAsset="BOTSCNY" /> */}
+                            <BlockTradesGatewayDepositRequest
+                                    key="ccedk-open.dgd"
+                                    gateway="openledger"
+                                    url="https://bitshares.openledger.info/depositwithdraw/api/v2"
+                                    issuer_account="openledger-wallet"
+                                    account={this.props.account}
+                                    deposit_asset="DGD"
+                                    deposit_coin_type="dgd"
+                                    deposit_asset_name="Digix DGD"
+                                    deposit_wallet_type="ethereum"
+                                    receive_asset="OPEN.DGD"
+                                    receive_coin_type="open.dgd" />
                             </tbody>
                         </table>
-                    {/* </div> */}
+                    {/*    </div> */}
+                </Tabs.Tab>
+
+                <Tabs.Tab title="MKR">
+                    {/* <div className="content-block"> */}
+                        <h3>Maker <Translate content="gateway.bridge" /></h3>
+                        <div className="float-right"><a href="https://blocktrades.us" target="__blank">VISIT BLOCKTRADES</a></div>
+                            <BlockTradesBridgeDepositRequest
+                            gateway="blocktrades"
+                            url="https://api.blocktrades.us/v2"
+                            issuer_account="blocktrades"
+                            account={this.props.account}
+                            initial_deposit_input_coin_type="ethereum_mkr"
+                            initial_deposit_output_coin_type="bitshares_mkr"
+                            initial_deposit_estimated_input_amount="1.0"
+                            initial_withdraw_input_coin_type="bitshares_mkr"
+                            initial_withdraw_output_coin_type="ethereum_mkr"
+                            initial_withdraw_estimated_input_amount="1.0"
+                        />
+                    {/*    </div> */}
                 </Tabs.Tab>
 
             </Tabs>

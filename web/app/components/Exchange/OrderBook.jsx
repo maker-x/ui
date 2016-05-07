@@ -70,14 +70,14 @@ class OrderBookRowHorizontal extends React.Component {
         return (
             <tr onClick={this.props.onClick} >
                 {position === "left" ? <td>{total}</td> :
-                <td className={integerClass}>
+                <td style={{width: "25%"}} className={integerClass}>
                     {price}
                 </td>
                 }
                 <td>{position === "left" ? value : amount}</td>
                 <td>{position === "left" ? amount : value}</td>
                 {position === "right" ? <td>{total}</td> :
-                <td className={integerClass}>
+                <td style={{width: "25%"}} className={integerClass}>
                     {price}
                 </td>
                 }

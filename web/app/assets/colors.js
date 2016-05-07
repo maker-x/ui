@@ -12,7 +12,14 @@ module.exports = {
         primaryText: "#e0e0e0",
         lightTextColor: "#fff",
         volumeColor: "#848484",
-        axisColor: "#FFFFFF"
+
+        //tooltip
+        tooltipBackgroundColor: "rgba(255, 255, 255, 0.888)",
+        tooltipColor: "#0a122a",
+        tooltipFillColor: "#fff",
+        //axis
+        axisLabelsColor: "#eff1f3",
+        axisLineColor: "#1a8bbc"
     },
     olDarkTheme: {
         bidColor: "#50D2C2",
@@ -27,7 +34,14 @@ module.exports = {
         primaryText: "#e0e0e0",
         lightTextColor: "#fff",
         volumeColor: "#848484",
-        axisColor: "#FFFFFF"
+        
+        //tooltip
+        tooltipBackgroundColor: "rgba(0, 0, 0, 0.4)",
+        tooltipColor: "#fff",
+        tooltipFillColor: "#fff",
+        //axis
+        axisLabelsColor: "#fff",
+        axisLineColor: "#fff" 
     },
     darkTheme: {
         bidColor: "#50D2C2",
@@ -42,7 +56,14 @@ module.exports = {
         primaryText: "#e0e0e0",
         lightTextColor: "#fff",
         volumeColor: "#848484",
-        axisColor: "#FFFFFF"
+
+        //tooltip
+        tooltipBackgroundColor: "rgba(0, 0, 0, 0.4)",
+        tooltipColor: "#fff",
+        tooltipFillColor: "#fff",
+        //axis
+        axisLabelsColor: "#fff",
+        axisLineColor: "#fff"
     },
     lightTheme: {
         bidColor: "#258A14",
@@ -57,6 +78,13 @@ module.exports = {
         primaryText: "#3F2E55",
         lightTextColor: "#3F2E55",
         volumeColor: "#848484",
-        axisColor: "#30343f"
+
+        //tooltip
+        tooltipBackgroundColor: "rgba(53, 55, 66, 0.9)",
+        tooltipColor: "#fff",
+        tooltipFillColor: "#fff",
+        //axis
+        axisLabelsColor: "#30343f",
+        axisLineColor: "#1a8bbc"
     }
 }
