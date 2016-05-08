@@ -49,6 +49,7 @@
         unignore: "Unignore",
         show_ignored: "Show ignored accounts",
         hide_ignored: "Hide ignored accounts",
+        accounts: "Accounts",
         whitelist: {
             title: "Whitelist",
             black: "Blacklist",
@@ -64,7 +65,8 @@
         vesting: {
             title: "Vesting balances",
             balance_number: "Balance #%(id)s",
-            no_balances: "This account has no vesting balances"
+            no_balances: "This account has no vesting balances",
+            explain: "Vesting balances contain any fees earned through the referral program or from worker pay for example. They have a certain vesting period and are continually unlocked during that vesting period until all funds are available"
         },
         member: {
             stats: "Membership",
@@ -148,11 +150,12 @@
             minimum_feeds: "Minimum number of feeds",
             force_settlement_delay_sec: "Delay for forced settlements (minutes)",
             force_settlement_offset_percent: "Percent offset of forced settlements",
-            maximum_force_settlement_volume: "Max force settle volume (percent)",
+            maximum_force_settlement_volume: "Max force settle volume (percent of total supply per hour)",
             backing: "Short backing asset",
             error_precision: "That asset does not have the same precision as %(asset)s",
             error_invalid: "That asset may not be used",
-            market: "Preferred market pairing"
+            market: "Preferred market pairing",
+            precision_warning: "Warning: The number of decimals may not be changed after creation"
         },
         connections: {
             known: "Known by",
@@ -236,7 +239,8 @@
             cm_approved_by: "Committee members approved by %(account)s",
             cm_not_approved_by: "Committee members not approved by %(account)s",
             already: "Account is already in the list",
-            proxy_known: "Known proxies"
+            proxy_known: "Known proxies",
+            expired: "Expired workers"
         },
         options: {
             num_witnesses: "Desired Witnesses",
@@ -248,6 +252,8 @@
         follow: "Follow",
         pay: "Pay",
         overview: "Overview",
+        home: "Home",
+        welcome: "Welcome to MakerX",
         bts_market: "Market",
         history: "History",
         payees: "Payees",
@@ -263,16 +269,18 @@
         },
         collaterals: "Collateral Positions",
         eq_value: "Equivalent Value",
+        no_price: "No price available",
         percent: "Percent of total supply",
         please_create_account: "Please create an account",
         create_account: "Create account",
+        create_new: "Create New Account",
         identicon: "Identicon",
         pay_from: "Pay From",
         existing_accounts: "Existing Accounts",
         name_input: {
             name_is_taken: "Account name is already taken.",
             not_found: "Account not found.",
-            premium_name_faucet: "This is a premium name. Premium names are more expensive and can't be registered for free by faucet. Try to select another name containing at least one dash, number or no vowels.",
+            premium_name_faucet: "Account names must containing at least one dash or digit.",
             premium_name_warning: "This is a premium name that is more expensive to register. Regular names have at least one dash, number or no vowels."
         },
         propose_from: "Propose From",
@@ -290,6 +298,7 @@
         amount: "Amount",
         to: "To",
         memo: "Memo",
+        warn_name_unable_read_memo: "Warning: %(name)s will be unable to read this memo",
         fee: "Fee",
         send: "Send",
         final: "Final balance",
@@ -309,7 +318,8 @@
         again: "MAKE ANOTHER TRANSFER",
         see: "SEE MY TRANSFERS",
         close: "Close",
-        memo_unlock: "Unlock your wallet in order to see this memo"
+        memo_unlock: "Unlock your wallet in order to see this memo",
+        optional: "Optional"
     },
     operation: {
         pending: "pending %(blocks)s blocks",
@@ -331,6 +341,7 @@
         call_order_update: "{account} changed {debtSymbol} debt by {debt} and collateral by {collateral}",
         asset_reserve: "{account} reserved {amount}",
         asset_issue: "{account} issued {amount} to {to}",
+        asset_fund_fee_pool: "{account} funded {asset} fee pool with {amount}",
         asset_create: "{account} created the asset {asset}",
         asset_update: "{account} updated the asset {asset}",
         lifetime_upgrade_account: "{account} was upgraded to lifetime member",
@@ -360,6 +371,7 @@
         expires: "Expires",
         update_account: "Update account data for {account}",
         status: "Status",
+        asset_create: "Create the asset %(asset)s using the account {account}",
         update: {
             active_approvals_to_add: "Active approvals to add",
             active_approvals_to_remove: "Active approvals to remove",
@@ -435,6 +447,7 @@
         settlement_date: "Settlement date",
         asset_reserve: "reserved asset amount",
         trxTypes: {
+            all: "Show all",
             transfer: "Transfer",
             limit_order_create: "Place order",
             limit_order_cancel: "Cancel order",
@@ -641,7 +654,7 @@
             title: "Budget Items"
         },
         proposals: {
-            title: "Proposals"
+            title: "Proposed transactions"
         },
         account: {
             title: "Account"
@@ -676,7 +689,8 @@
         "darkTheme": "Graphene theme",
         "lightTheme": "MakerX light theme",
         "olDarkTheme": "Openledger theme",
-        reset: "Reset settings"
+        reset: "Reset settings",
+        disableChat: "Disable chat"
     },
     footer: {
         title: "MakerX",
@@ -754,7 +768,9 @@
         invert: "Invert the price",
         to_market: "Go to market",
         zoom_all: "All",
-        settings: "Chart options"
+        settings: "Chart options",
+        featured: "Featured Markets",
+        new: "New"
     },
     fees: {
      title: "Fee Schedule"
@@ -898,19 +914,49 @@
         refcode_optional: "Referral Code (optional)",
         enter_refcode: "Enter referral code"
     },
+    proposal_create : {
+        review_period: "Review period begin",
+        expiration_time: "Expiration time",
+        proposed_operations: "Proposed operations",
+        fee_paying_account: "Fee paying account"
+    },
     gateway: {
         bridge: "Bridge",
         gateway: "Gateway",
         symbol: "Symbol",
+        website: "Visit the website",
         deposit_to: "Deposit To",
-        balance: "Balance",
+        balance: "Current balance",
         generate: "Generate",
-        generate_new: "New address",
+        generate_new: "Get new address",
         deposit: "Deposit",
-        withdraw: "Withdraw",
+        withdraw: "Withdrawal",
+        withdraw_now: "Withdraw now",
         inventory: "Inventory",
         scan_qr: "Scan QR",
         calc: "Calculating",
+        choose_deposit: "Please select the coin you would like to deposit",
+        choose_withdraw: "Please select the coin you would like to withdraw",
+        deposit_to: "Please send your %(asset)s to the address below",
+        asset_to_deposit: "Asset to deposit:",
+        asset_to_receive: "You will receive:",
+        receive_account: "Receiving account:",
+        deposit_summary: "Deposit summary",
+        deposit_inst: "Deposit instructions",
+        recent_deposit: "Recent deposits",
+        recent_withdraw: "Recent withdrawals",
+        withdraw_summary: "Withdrawal summary",
+        withdraw_inst: "Withdrawal instructions",
+        withdraw_to: "Click the button below to open a %(asset)s withdrawal",
+        intermediate: "Intermediate account",
+        asset_to_withdraw: "Asset to withdraw:",
+        support_block: "For support, please contact Blocktrades at:",
+        valid_address: "Please enter a valid %(coin_type)s address",
+        withdraw_coin: "Withdraw %(coin)s (%(symbol)s)",
+        limit: "Limit: %(amount)s %(symbol)s",
+        bridge_text: "A bridge lets you 'shapeshift' an asset into another one, for example BTC to BTS.",
+        gateway_text: "A gateway lets you move to and from Bitshares assets to the real asset, like OPEN.BTC to BTC.",
+        fiat_text: "Fiat deposits and withdrawal are provided by CCEDK. In order to get started you need to complete the registration process. The following conversions are available:",
         transwiser: {
             gateway: "Transwiser",
             visit_weidian: "Visit to deposit",
@@ -923,5 +969,19 @@
         meta: {
             open_website: "Open Website"
         }
+    },
+    chat: {
+        title: "Trollbox",
+        button: "Chat",
+        send: "Send",
+        color: "Username color",
+        user: "Username",
+        done: "Done",
+        reconnect: "Reconnect",
+        welcome_user: "Welcome to MakerX",
+        users: "%(count)s users online",
+        welcome: "This is a peer to peer chatroom, with no moderation and no guaranteed unique usernames. It can be disabled in the settings. Message frequency is limited to one per 2 seconds. For a list of available commands, type /help.",
+        disconnected: "You are currently not connected to any peers or the central server, please click below to reconnect. If you are unable to connect, this might mean the server is down, please try again later.",
+        rate: "Please wait at least 2s before posting a new message"
     }
 };

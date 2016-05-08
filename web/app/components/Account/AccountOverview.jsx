@@ -7,8 +7,10 @@ import TotalBalanceValue from "../Utility/TotalBalanceValue";
 import SettleModal from "../Modal/SettleModal";
 import MarketLink from "../Utility/MarketLink";
 import {BalanceValueComponent} from "../Utility/EquivalentValueComponent";
+import AssetName from "../Utility/AssetName";
 import CollateralPosition from "../Blockchain/CollateralPosition";
 import RecentTransactions from "./RecentTransactions";
+import Proposals from "components/Account/Proposals";
 import ChainStore from "api/ChainStore";
 import SettingsActions from "actions/SettingsActions";
 import assetUtils from "common/asset_utils";
@@ -68,7 +70,7 @@ class AccountOverview extends React.Component {
                 assetInfoLinks = (
                 <ul>
                     <li><a href={`#/asset/${asset.get("symbol")}`}><Translate content="account.asset_details"/></a></li>
-                    {asset.get("id") !== "1.3.0" ? <li><a href={`#/market/${asset.get("symbol")}_${preferredMarket}`}><Translate content="exchange.market"/></a></li> : null}
+                    {asset.get("id") !== "1.3.0" ? <li><a href={`#/market/${asset.get("symbol")}_${preferredMarket}`}><AssetName name={asset.get("symbol")} /> : <AssetName name={preferredMarket} /></a></li> : null}
                     {isBitAsset && <li><a href onClick={this._onSettleAsset.bind(this, asset.get("id"))}><Translate content="account.settle"/></a></li>}
                 </ul>);
             }
@@ -190,6 +192,7 @@ class AccountOverview extends React.Component {
                         <SettleModal ref="settlement_modal" asset={this.state.settleAsset} account={account.get("name")}/>
                     </div>
                 </div>
+
                 {call_orders.length > 0 ? (
 
                 <div className="content-block">
@@ -214,6 +217,14 @@ class AccountOverview extends React.Component {
                         </table>
                     </div>
                 </div>) : null}
+
+                {account.get("proposals") && account.get("proposals").size ? 
+                <div className="content-block">
+                    <div className="block-content-header">
+                        <Translate content="explorer.proposals.title" account={account.get("id")} />
+                    </div>
+                    <Proposals account={account.get("id")}/>
+                </div> : null}
                 
                 <div className="content-block">
                     <RecentTransactions
@@ -221,10 +232,11 @@ class AccountOverview extends React.Component {
                         compactView={false}
                         showMore={true}
                         fullHeight={true}
+                        limit={10}
+                        showFilters={true}
                     />
                 </div>
             </div>
-
         );
     }
 }
