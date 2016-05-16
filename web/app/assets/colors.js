@@ -41,7 +41,7 @@ module.exports = {
         tooltipFillColor: "#fff",
         //axis
         axisLabelsColor: "#fff",
-        axisLineColor: "#fff" 
+        axisLineColor: "#fff"  
     },
     darkTheme: {
         bidColor: "#50D2C2",
@@ -56,11 +56,12 @@ module.exports = {
         primaryText: "#e0e0e0",
         lightTextColor: "#fff",
         volumeColor: "#848484",
-
+        
         //tooltip
         tooltipBackgroundColor: "rgba(0, 0, 0, 0.4)",
         tooltipColor: "#fff",
-        tooltipFillColor: "#fff",
+        tooltipFillColor: "#fff" ,
+
         //axis
         axisLabelsColor: "#fff",
         axisLineColor: "#fff"

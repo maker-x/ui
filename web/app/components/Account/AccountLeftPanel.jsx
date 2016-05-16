@@ -54,14 +54,8 @@ class AccountLeftPanel extends React.Component {
     render() {
         let {account, linkedAccounts, isMyAccount} = this.props;
         let account_name = account.get("name");
-         let linkBtn = null;
-        {/* // if (!isMyAccount) {
-            linkBtn = linkedAccounts.has(account_name) ?
-                <a style={{marginBottom: "1rem"}} href className="button outline block-button" onClick={this.onUnlinkAccount.bind(this)}><Translate
-                    content={`account.${!isMyAccount ? "unfollow" : "ignore"}`}/></a> :
-                <a style={{marginBottom: "1rem"}} href className="button outline block-button" onClick={this.onLinkAccount.bind(this)}><Translate
-                    content={`account.${!isMyAccount ? "follow" : "unignore"}`}/></a>;
-        // } */}
+        
+        let linkBtn = null;
         let settings       = counterpart.translate("header.settings");
         return (
             <div className="grid-block vertical account-left-panel no-padding no-overflow">
@@ -72,23 +66,28 @@ class AccountLeftPanel extends React.Component {
                             ref="confirmModal" />
 
                         <div className="regular-padding">
-                            <AccountInfo account={account.get("id")} image_size={{height: 120, width: 120}} my_account={isMyAccount}/>
-                            {/* <div className="grid-container no-margin">
+                            <AccountInfo account={account.get("id")} image_size={{height: 90, width: 90}} my_account={isMyAccount}/>
+                            {/*<div className="grid-container no-margin">
                                 { linkBtn }
                                 <Link className="button outline block-button" to={`/transfer/?to=${account_name}`}><Translate content="account.pay"/></Link>
-                            </div> */}
-                        </div> 
+                            </div>*/}
+                        </div>
                         <section className="block-list">
                             <ul className="account-left-menu">
                                 <li><Link to={`/account/${account_name}/overview/`} activeClassName="active"><Translate content="account.overview"/></Link></li>
-                                {/* <li><Link to={`/account/${account_name}/assets/`} activeClassName="active"><Translate content="explorer.assets.title"/></Link></li> */}
-                                {/* <li><Link to={`/account/${account_name}/member-stats/`} activeClassName="active"><Translate content="account.member.stats"/></Link></li> */}
-                                {/* <li><Link to={`/account/${account_name}/permissions/`} activeClassName="active"><Translate content="account.permissions"/></Link></li> */}
-                                {/* <li><Link to={`/account/${account_name}/voting/`} activeClassName="active"><Translate content="account.voting"/></Link></li> */}
+                                {/*<li><Link to={`/account/${account_name}/member-stats/`} activeClassName="active"><Translate content="account.member.stats"/></Link></li>*/}
                                 <li><Link to={`/account/${account_name}/orders/`} activeClassName="active"><Translate content="account.open_orders"/></Link></li>
-                                {/* <li><Link to={`/account/${account_name}/whitelist/`} activeClassName="active"><Translate content="account.whitelist.title"/></Link></li> */}
-                                {/* {isMyAccount ? <li><Link to={`/account/${account_name}/deposit-withdraw/`} activeClassName="active"><Translate content="account.deposit_withdraw"/></Link></li> : null} */}
-                                {/* {isMyAccount ? <li><Link to={`/account/${account_name}/vesting/`} activeClassName="active"><Translate content="account.vesting.title"/></Link></li> : null} */}
+                                {/*<li><Link to={`/account/${account_name}/voting/`} activeClassName="active"><Translate content="account.voting"/></Link></li>*/}
+                                {/*isMyAccount ? <li><Link to={`/account/${account_name}/deposit-withdraw/`} activeClassName="active"><Translate content="account.deposit_withdraw"/></Link></li> : null*/}
+                                
+                                {/* Advanced features*/}
+                                {/*<Translate className="menu-subheader" component="li" content="account.user_issued_assets.advanced" />
+                                <li><Link to={`/account/${account_name}/assets/`} activeClassName="active"><Translate content="explorer.assets.title"/></Link></li>
+                                <li><Link to={`/account/${account_name}/permissions/`} activeClassName="active"><Translate content="account.permissions"/></Link></li>
+                                <li><Link to={`/account/${account_name}/whitelist/`} activeClassName="active"><Translate content="account.whitelist.title"/></Link></li>
+                                {isMyAccount ? <li><Link to={`/account/${account_name}/vesting/`} activeClassName="active"><Translate content="account.vesting.title"/></Link></li> : null}
+                                */}
+
                             </ul>
                         </section>
                     </div>

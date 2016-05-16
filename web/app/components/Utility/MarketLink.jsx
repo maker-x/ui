@@ -55,5 +55,4 @@ class ObjectWrapper extends React.Component {
 }
 
 MarketLink.ObjectWrapper = ObjectWrapper;
-
 export default MarketLink;

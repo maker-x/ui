@@ -149,6 +149,7 @@ class AccountOverview extends React.Component {
         }
 
         let totalBalance = includedBalancesList.size ? <TotalBalanceValue balances={includedBalancesList}/> : null;
+        
 
         return (
             <div className="grid-content">

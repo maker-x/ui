@@ -126,42 +126,6 @@ class AccountDepositWithdraw extends React.Component {
                     contentClass="grid-content"
                 >
 
-                    <Tabs.Tab title="Bridge">
-                        <div className="content-block">
-                            <div className="float-right"><a href="https://blocktrades.us" target="__blank"><Translate content="gateway.website" /></a></div>
-                            {/*<div className="button-group">
-                                <div onClick={this.toggleBTService.bind(this, "bridge")} className={cnames("button", btService === "bridge" ? "active" : "outline")}><Translate content="gateway.bridge" /></div>
-                                <div onClick={this.toggleBTService.bind(this, "gateway")} className={cnames("button", btService === "gateway" ? "active" : "outline")}><Translate content="gateway.gateway" /></div>
-                            </div>
-                            */}
-
-                            {true || btService === "bridge" ? 
-                            <BlockTradesBridgeDepositRequest
-                                gateway="blocktrades"
-                                url="https://api.blocktrades.us/v2"
-                                issuer_account="blocktrades"
-                                account={account}
-                                initial_deposit_input_coin_type="ethereum_mkr"
-                                initial_deposit_output_coin_type="bitshares_mkr"
-                                initial_deposit_estimated_input_amount="1.0"
-                                initial_withdraw_input_coin_type="bitshares_mkr"
-                                initial_withdraw_output_coin_type="ethereum_mkr"
-                                initial_withdraw_estimated_input_amount="1.0"
-                            /> : null}
-
-                            {false && btService === "gateway" && blockTradesGatewayCoins.length ? 
-                            <BlockTradesGateway
-                                account={account}
-                                coins={blockTradesGatewayCoins}
-                                provider="blocktrades"
-                            /> : null}
-                        </div>
-                        <div className="content-block">
-                            
-
-                        </div>
-                    </Tabs.Tab>
-
                     <Tabs.Tab title="Gateway">
                         <div className="content-block">
                             <div className="float-right">
@@ -198,6 +162,42 @@ class AccountDepositWithdraw extends React.Component {
                         
                     </Tabs.Tab>
 
+                    <Tabs.Tab title="Bridge">
+                        <div className="content-block">
+                            <div className="float-right"><a href="https://blocktrades.us" target="__blank"><Translate content="gateway.website" /></a></div>
+                            {/*<div className="button-group">
+                                <div onClick={this.toggleBTService.bind(this, "bridge")} className={cnames("button", btService === "bridge" ? "active" : "outline")}><Translate content="gateway.bridge" /></div>
+                                <div onClick={this.toggleBTService.bind(this, "gateway")} className={cnames("button", btService === "gateway" ? "active" : "outline")}><Translate content="gateway.gateway" /></div>
+                            </div>
+                            */}
+
+                            {true || btService === "bridge" ? 
+                            <BlockTradesBridgeDepositRequest
+                                gateway="blocktrades"
+                                url="https://api.blocktrades.us/v2"
+                                issuer_account="blocktrades"
+                                account={account}
+                                initial_deposit_input_coin_type="ethereum_mkr"
+                                initial_deposit_output_coin_type="bitshares_mkr"
+                                initial_deposit_estimated_input_amount="1.0"
+                                initial_withdraw_input_coin_type="bitshares_mkr"
+                                initial_withdraw_output_coin_type="ethereum_mkr"
+                                initial_withdraw_estimated_input_amount="1.0"
+                            /> : null}
+
+                            {false && btService === "gateway" && blockTradesGatewayCoins.length ? 
+                            <BlockTradesGateway
+                                account={account}
+                                coins={blockTradesGatewayCoins}
+                                provider="blocktrades"
+                            /> : null}
+                        </div>
+                        <div className="content-block">
+                            
+
+                        </div>
+                    </Tabs.Tab>
+                    
                     {/* 
                     <Tabs.Tab title="metaexchange">
                         <div className="float-right"><a style={{textTransform: "capitalize"}} href="https://metaexchange.info" target="__blank"><Translate content="gateway.website" /></a></div>

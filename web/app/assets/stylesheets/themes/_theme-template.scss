@@ -23,7 +23,8 @@
   $positive-color,
   $negative-color,
   $row-accent-color,
-  $header-color
+  $header-color,
+  $chat-text-color
   ) {
 
   #content-wrapper {
@@ -229,7 +230,7 @@
   // buttons
 
   .button {
-    background-color: $button-bg-color;
+    background: $button-bg-color;
     &:hover, &:focus, &:active {
       background-color: lighten($button-bg-color, 4%) !important;
     }
@@ -265,6 +266,8 @@
   }
 
   .header-right-menu {
+
+    a:hover {background-color: lighten($panel-bg-color, 4%);}
     a > span { color: $secondary-text-color; }
     svg > path { fill: $secondary-text-color; }
     a:hover > span { color: $primary-text-color; }
@@ -481,6 +484,13 @@
     }
   }
 
+  .icon.error {
+    padding-right: 1rem;
+    > svg > path {
+      fill: $warning-color;
+    }
+  }
+
   .circle-wrapper {
      .circle:before {
        background-color: $secondary-text-color;
@@ -632,7 +642,6 @@
   }
 
   td.orderHistoryBid {
-   
     > span.price-integer, > span > span.price-integer {
       font-weight: bold;
       color: $bid-color;
@@ -655,7 +664,6 @@
 
   td.orderHistoryAsk  {
 
-    
     > span.price-integer, > span > span.price-integer {
       font-weight: bold;
       color: $ask-color;
@@ -669,7 +677,6 @@
   }
 
 .orderbook td.orderHistoryAsk {
-   
   > span.price-integer, > span > span.price-integer {
     font-weight: bold;
     color: $primary-text-color;
@@ -698,7 +705,7 @@
 
   .orderbook-latest-price {
       div {
-        background-color: #4C4C4C !important;
+        background-color: $panel-bg-color !important;
         border-bottom: 1px solid grey !important;
         border-top: 1px solid grey !important;
         padding: 10px 0 !important;
@@ -788,5 +795,51 @@
 
   .table > tbody > tr:nth-of-type(even) {
     background-color: lighten($bg-color, 4%);
+  }
+
+  //bottom stats
+  .bucket-option {
+    @include button-focus($secondary-text-color, $panel-bg-color, 0);
+    &:hover {
+      @include button-focus($primary-text-color, $panel-bg-color, 10);
+    }
+  }
+
+  .active-bucket {
+    @include button-focus($primary-text-color, $panel-bg-color, 10);
+  }
+
+
+  .indicators, li.stat.clickable{
+    color: $secondary-text-color;
+    &:hover{
+      @include button-focus($primary-text-color, $panel-bg-color, 10);
+    }
+  }
+
+  div.fm-container:hover {
+    background-color: darken($light-panel-bg-color, 5%);
+    cursor: pointer;
+  }
+
+  #chatbox {
+    .chat-text {
+      color: $chat-text-color;
+    }
+
+    .chatbox-content {
+        background-color: #ccc;
+        color: $chat-text-color;
+    }
+
+    .chatbox-title {
+      background-color: $header-color !important;
+    }
+
+    select {
+      height: 3rem;
+      font-size: 12px;
+    }
+
   }
 }

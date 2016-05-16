@@ -2,7 +2,6 @@ import React from "react";
 import counterpart from "counterpart";
 import IntlActions from "actions/IntlActions";
 import Translate from "react-translate-component";
-import cookies from "cookies-js";
 import SettingsActions from "actions/SettingsActions";
 import {Link} from "react-router";
 import WebsocketAddModal from "./WebsocketAddModal";
@@ -57,7 +56,8 @@ class SettingsEntry extends React.Component {
                 break;
 
             case "connection":
-                value = connection;
+                value = defaults.indexOf(connection) !== -1 ? connection : defaults[0];
+
                 options = defaults.map(entry => {
                     let option = entry.translate ? counterpart.translate(`settings.${entry.translate}`) : entry;
                     let key = entry.translate ? entry.translate : entry;
@@ -65,6 +65,7 @@ class SettingsEntry extends React.Component {
                 });
 
                 let defaultConnection = defaults[0];
+
                 let confirmButton = <div style={{padding: "10px"}}><button onClick={this._onConfirm.bind(this)} className="button outline"><Translate content="transfer.confirm" /></button></div>
 
                 optional = (
@@ -106,10 +107,11 @@ class SettingsEntry extends React.Component {
                 }
 
                 if (defaults) {
-                    options = defaults.map(entry => {
+                    options = defaults.map((entry, index) => {
                         let option = entry.translate ? counterpart.translate(`settings.${entry.translate}`) : entry;
+
                         let key = entry.translate ? entry.translate : entry;
-                        return <option value={option} key={key}>{option}</option>;
+                        return <option value={entry.translate ? entry.translate : entry} key={key}>{option}</option>;
                     })
                 } else {
                     input = <input type="text" defaultValue={value} onBlur={this.props.onChange.bind(this, setting)}/>
@@ -123,7 +125,7 @@ class SettingsEntry extends React.Component {
         if (!value && !options) return null;
 
         if (value && value.translate) {
-            value = counterpart.translate(`settings.${value.translate}`);
+            value = value.translate;
         }
 
         return (
@@ -213,6 +215,14 @@ class Settings extends React.Component {
                 });
                 break;
 
+            case "disableChat":
+                SettingsActions.changeSetting({setting: "disableChat", value: e.target.value === "yes" });
+                break;
+
+            case "showSettles":
+                SettingsActions.changeSetting({setting: "showSettles", value: e.target.value === "yes" });
+                break;
+
             case "unit":
                 let index = findEntry(e.target.value, defaults[setting]);
                 SettingsActions.changeSetting({setting: setting, value: defaults[setting][index]});
@@ -232,7 +242,7 @@ class Settings extends React.Component {
     onReset() {
         SettingsActions.clearSettings();
     }
-    
+
     render() {
         let {settings, defaults} = this.props;
 
@@ -268,6 +278,7 @@ class Settings extends React.Component {
                     ref="ws_modal"
                     apis={defaults["connection"]}
                     api={defaults["connection"].filter(a => {return a === this.state.connection})}
+                    changeConnection={(connection) => {this.setState({connection})}}
                 />
             </div>
         );
@@ -275,4 +286,3 @@ class Settings extends React.Component {
 }
 
 export default Settings;
-

@@ -11,14 +11,14 @@ counterpart.registerTranslations("en", locale_en);
 counterpart.setFallbackLocale("en");
 
 import {addLocaleData} from 'react-intl';
-import en from 'react-intl/lib/locale-data/en';
-import es from 'react-intl/lib/locale-data/es';
-import fr from 'react-intl/lib/locale-data/fr';
 
-import ko from 'react-intl/lib/locale-data/ko';
-import zh from 'react-intl/lib/locale-data/zh';
-import de from 'react-intl/lib/locale-data/de';
-import tr from 'react-intl/lib/locale-data/tr';
+import en from 'react-intl/locale-data/en';
+import es from 'react-intl/locale-data/es';
+import fr from 'react-intl/locale-data/fr';
+import ko from 'react-intl/locale-data/ko';
+import zh from 'react-intl/locale-data/zh';
+import de from 'react-intl/locale-data/de';
+import tr from 'react-intl/locale-data/tr';
 
 addLocaleData(en);
 addLocaleData(es);
@@ -31,7 +31,7 @@ addLocaleData(tr);
 class IntlStore extends BaseStore {
     constructor() {
         super();
-        this.currentLocale = ss.get("settings_v3") ? ss.get("settings_v3").locale : "en";
+        this.currentLocale = ss.has("settings_v3") ? ss.get("settings_v3").locale : "en";
         this.locales = ["en"];
         this.localesObject = {en: locale_en};
 

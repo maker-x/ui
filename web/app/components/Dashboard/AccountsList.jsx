@@ -234,11 +234,8 @@ class AccountsList extends React.Component {
                     {!this.props.compact ? (
                     <thead>
                         <tr>
-                            <th onClick={this._setSort.bind(this, 'star')} className="clickable"><Icon className="grey-star" name="fi-star"/></th>
                             <th onClick={this._setSort.bind(this, 'name')} className="clickable"><Translate content="header.account" /></th>
                             <th style={{textAlign: "right"}}><Translate content="account.open_orders" /></th>
-                            {width >= 750 ? <th style={{textAlign: "right"}}><Translate content="account.as_collateral" /></th> : null}
-                            {width >= 1200 ? <th style={{textAlign: "right"}}><Translate content="transaction.borrow_amount" /></th> : null}
                             <th style={{textAlign: "right"}}><Translate content="account.total_value" /></th>
                         </tr>
                     </thead>) : null}

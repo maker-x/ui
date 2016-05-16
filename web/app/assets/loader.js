@@ -4,3 +4,4 @@ require("file?name=makerxicon.ico!./makerxicon.ico");
 require("babel/polyfill");
 require("whatwg-fetch");
 require("indexeddbshim");
+require("./asset-symbols/symbols.js");

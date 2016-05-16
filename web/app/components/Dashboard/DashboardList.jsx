@@ -198,21 +198,12 @@ class DashboardList extends React.Component {
 
                 return (
                     <tr key={accountName}>
-                        <td onClick={this._onStar.bind(this, accountName, isStarred)}>
-                            <Icon className={starClass} name="fi-star"/>
-                        </td>
                         <td onClick={this._goAccount.bind(this, `${accountName}/overview`)} className={isMyAccount ? "my-account" : ""} style={{textTransform: "uppercase"}}>
                             {accountName}
                         </td>
                         <td onClick={this._goAccount.bind(this, `${accountName}/orders`)} style={{textAlign: "right"}}>
                             <TotalBalanceValue balances={[]} openOrders={openOrders}/>
                         </td>
-                        {width >= 750 ? <td onClick={this._goAccount.bind(this, `${accountName}/overview`)} style={{textAlign: "right"}}>
-                            <TotalBalanceValue balances={[]} collateral={collateral}/>
-                        </td> : null}
-                        {width >= 1200 ? <td onClick={this._goAccount.bind(this, `${accountName}/overview`)} style={{textAlign: "right"}}>
-                            <TotalBalanceValue balances={[]} debt={debt}/>
-                        </td> : null}
                         <td onClick={this._goAccount.bind(this, `${accountName}/overview`)} style={{textAlign: "right"}}>
                             <TotalBalanceValue balances={balanceList} collateral={collateral} debt={debt} openOrders={openOrders}/>
                         </td>
@@ -234,11 +225,8 @@ class DashboardList extends React.Component {
                     {!this.props.compact ? (
                     <thead>
                         <tr>
-                            <th onClick={this._setSort.bind(this, 'star')} className="clickable"><Icon className="grey-star" name="fi-star"/></th>
                             <th onClick={this._setSort.bind(this, 'name')} className="clickable"><Translate content="header.account" /></th>
                             <th style={{textAlign: "right"}}><Translate content="account.open_orders" /></th>
-                            {width >= 750 ? <th style={{textAlign: "right"}}><Translate content="account.as_collateral" /></th> : null}
-                            {width >= 1200 ? <th style={{textAlign: "right"}}><Translate content="transaction.borrow_amount" /></th> : null}
                             <th style={{textAlign: "right"}}><Translate content="account.total_value" /></th>
                         </tr>
                     </thead>) : null}

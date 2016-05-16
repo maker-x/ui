@@ -31,8 +31,15 @@ class AccountStore extends BaseStore {
             onAccountSearch: AccountActions.accountSearch,
             // onNewPrivateKeys: [ PrivateKeyActions.loadDbData, PrivateKeyActions.addKey ]
         });
-        this._export("loadDbData", "tryToSetCurrentAccount", "onCreateAccount",
-            "getMyAccounts", "isMyAccount", "getMyAuthorityForAccount");
+        this._export(
+            "loadDbData",
+            "tryToSetCurrentAccount",
+            "onCreateAccount",
+            "getMyAccounts",
+            "isMyAccount",
+            "getMyAuthorityForAccount",
+            "isMyKey"
+        );
     }
     
     _getInitialState() {
@@ -44,7 +51,7 @@ class AccountStore extends BaseStore {
             currentAccount: null,
             linkedAccounts: Immutable.Set(),
             myIgnoredAccounts: Immutable.Set(),
-            unFollowedAccounts: Immutable.Set(accountStorage.get("unfollowed_accounts") || []),
+            unFollowedAccounts: Immutable.Set(accountStorage.get("unfollowed_accounts", [])),
             searchAccounts: Immutable.Map(),
             searchTerm: ""
         }
@@ -135,22 +142,26 @@ class AccountStore extends BaseStore {
     */
     getMyAuthorityForAccount(account, recursion_count = 1) {
         if (! account) return undefined
+
+        let owner_authority = account.get("owner")
+        let active_authority = account.get("active")
         
-        var owner_authority = account.get("owner")
-        var active_authority = account.get("active")
-        
-        var owner_pubkey_threshold = pubkeyThreshold(owner_authority)
+        let owner_pubkey_threshold = pubkeyThreshold(owner_authority)
         if(owner_pubkey_threshold == "full") return "full"
-        var active_pubkey_threshold = pubkeyThreshold(active_authority)
+        let active_pubkey_threshold = pubkeyThreshold(active_authority)
         if(active_pubkey_threshold == "full") return "full"
         
-        var owner_address_threshold = addressThreshold(owner_authority)
+        let owner_address_threshold = addressThreshold(owner_authority)
         if(owner_address_threshold == "full") return "full"
-        var active_address_threshold = addressThreshold(active_authority)
+        let active_address_threshold = addressThreshold(active_authority)
         if(active_address_threshold == "full") return "full"
         
-        var owner_account_threshold, active_account_threshold
-        if(recursion_count < 3) {
+        let owner_account_threshold, active_account_threshold;
+
+        // if (account.get("name") === "secured-x") {
+        //     debugger;
+        // }
+        if(recursion_count < 3) {            
             owner_account_threshold = this._accountThreshold(owner_authority, recursion_count)
             if ( owner_account_threshold === undefined ) return undefined
             if(owner_account_threshold == "full") return "full"
@@ -170,15 +181,22 @@ class AccountStore extends BaseStore {
     _accountThreshold(authority, recursion_count) {
         var account_auths = authority.get("account_auths")
         if( ! account_auths.size ) return "none"
-        // for (let a of account_auths)
-            // get all accounts in the queue for fetching
-            // ChainStore.getAccount(a.get(0))
 
-        for (let a of account_auths) {
-            var account = ChainStore.getAccount(a.get(0))
+        let auths = account_auths.map(auth => {
+            let account = ChainStore.getAccount(auth.get(0))
             if(account === undefined) return undefined
             return this.getMyAuthorityForAccount(account, ++recursion_count)
-        }
+        });
+
+        let final = auths.reduce((map, auth) => {
+            return map.set(auth, true);
+        }, Immutable.Map());
+
+        return final.get("full") && final.size === 1 ? "full" :
+               final.get("partial") && final.size === 1 ? "partial" :
+               final.get("none") && final.size === 1 ? "none" :
+               final.get("full") || final.get("partial") ? "partial" :
+               undefined;
     }
 
     isMyAccount(account) {
@@ -198,8 +216,8 @@ class AccountStore extends BaseStore {
     }
 
     tryToSetCurrentAccount() {
-        if (localStorage.currentAccount) {
-            return this.setCurrentAccount(localStorage.currentAccount);
+        if (accountStorage.has("currentAccount")) {
+            return this.setCurrentAccount(accountStorage.get("currentAccount"));
         }
 
         let {starredAccounts} = SettingsStore.getState();
@@ -218,7 +236,7 @@ class AccountStore extends BaseStore {
             this.state.currentAccount = name
         }
 
-        localStorage.currentAccount = this.state.currentAccount;
+        accountStorage.set("currentAccount", this.state.currentAccount);
     }
 
     onSetCurrentAccount(name) {
@@ -312,7 +330,10 @@ class AccountStore extends BaseStore {
             }
         })
     }
-    
+
+    isMyKey(key) {
+        return PrivateKeyStore.hasKey(key);
+    }
 }
 
 export default alt.createStore(AccountStore, "AccountStore");
@@ -348,15 +369,3 @@ function addressThreshold(authority) {
     }
     return available >= required ? "full" : available > 0 ? "partial" : "none"
 }
-
-    function lsGet(key) {
-        if (ls) {
-            return ls.getItem(STORAGE_KEY + key);
-        }
-    }
-
-    function lsSet(key, object) {
-        if (ls) {
-            ls.setItem(STORAGE_KEY + key, JSON.stringify(object));
-        }
-    }

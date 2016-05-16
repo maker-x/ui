@@ -113,7 +113,7 @@ class AccountVotingProxy extends React.Component {
                                 custom_image={null}
                             />
                         </td>
-                        <td><LinkToAccountById account={account.get("id")} path="voting" /></td>
+                        <td><LinkToAccountById account={account.get("id")} subpage="voting" /></td>
                         <td className="text-right"><button className="button" onClick={this.onProxyChange.bind(this, account.get("name"))}>Set</button></td>
                     </tr>
                 );

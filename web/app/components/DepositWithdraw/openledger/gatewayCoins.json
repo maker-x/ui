@@ -1,0 +1,38 @@
+[
+  {
+    "backingCoinType": "ETH",
+    "name": "Ether",
+    "walletType": "ethereum",
+    "symbol": "OPEN.ETH"
+  },
+  {
+    "backingCoinType": "BTC",
+    "name": "Bitcoin",
+    "walletType": "bitcoin",
+    "symbol": "OPEN.BTC"
+  },
+  {
+    "backingCoinType": "DGD",
+    "name": "Digix DGD",
+    "walletType": "ethereum",
+    "symbol": "OPEN.DGD"
+  },
+  {
+    "backingCoinType": "DASH",
+    "name": "Dash",
+    "walletType": "dash",
+    "symbol": "OPEN.DASH"
+  },
+  {
+    "backingCoinType": "DOGE",
+    "name": "Dogecoin",
+    "walletType": "dogecoin",
+    "symbol": "OPEN.DOGE"
+  },
+  {
+    "backingCoinType": "LTC",
+    "name": "Litecoin",
+    "walletType": "litecoin",
+    "symbol": "OPEN.LTC"
+  }
+]
