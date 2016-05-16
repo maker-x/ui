@@ -161,7 +161,7 @@ class Header extends React.Component {
                 </a>
             );
         } 
-        else if (linkedAccounts.size === 1) {
+        else if (linkedAccounts.size === 1 || myAccounts.length === 1) {
                 linkToAccountOrDashboard = (
                     <a className={cnames({active: active.indexOf("account/") !== -1})} onClick={this._onNavigate.bind(this, `/account/${linkedAccounts.first()}/overview/`)}>
                         <Translate component="span" content="header.account" />
