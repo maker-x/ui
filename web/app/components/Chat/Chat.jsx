@@ -222,7 +222,9 @@ export default class Chat extends React.Component {
             });
             
             data.history.forEach(msg => {
-                this.state.messages.push(msg);
+                if (msg.user !== "Welcome to MakerX") {
+                    this.state.messages.push(msg);
+                }
             });
             this.forceUpdate();
         }
@@ -254,7 +256,7 @@ export default class Chat extends React.Component {
     }
 
     sendHistory(c) {
-        c.send({history: this.state.messages.filter((msg) => {return msg.user !== "SYSTEM" && msg.user !== "Welcome to Bitshares"})});
+        c.send({history: this.state.messages.filter((msg) => {return msg.user !== "SYSTEM" && msg.user !== "Welcome to MakerX"})});
     }
 
     onConnection(c) {
@@ -489,7 +491,6 @@ export default class Chat extends React.Component {
 
         let {userName, loading, docked} = this.state;
 
-
         let messages = this.state.messages.map((msg, index) => {
             if (!msg.user || !msg.color || !msg.message) {
                 return null;
@@ -603,8 +604,8 @@ export default class Chat extends React.Component {
                                 </div>
                             </div>
                         </div>) : (
-                        <div className="grid-block vertical no-overflow chatbox-content" ref="chatbox" onScroll={this._onScroll.bind(this)}>
-                            <div className="grid-content">
+                        <div className="grid-block vertical no-overflow chatbox-content" onScroll={this._onScroll.bind(this)}>
+                            <div className="grid-content" ref="chatbox">
                                 {!showSettings ? <div>{messages}</div> : settings}
                             </div>
                         </div>)}
